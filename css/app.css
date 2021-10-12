@@ -1,1 +1,115 @@
+    body {
+        background-color: #f1f1f1;
+        width: 800px;
+        margin: auto;
+    }
 
+    /***********************************************************************************
+                                    大标签
+************************************************************************************/
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        background-color: AntiqueWhite;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+    }
+
+    .app {
+        list-style-type: none;
+        margin-left: 200px;
+        padding-left: 16px;
+        width: 600px;
+        background-color: white;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+    }
+
+    li a {
+        display: block;
+        color: #000;
+        padding: 8px 40px;
+        text-decoration: none;
+        font-family: 'icomoon';
+    }
+
+    .active {
+        background-color: #555;
+        /* #4CAF50 */
+        color: white;
+    }
+
+    /* li a:hover:not(.active) {
+        background-color: #555;
+        color: white;
+    } */
+    /***********************************************************************************
+                                        类
+************************************************************************************/
+    /* 链接属性 */
+    .mya {
+        width: 75px;
+        padding-left: 16px;
+        display: block;
+        float: left;
+        text-decoration: none;
+    }
+
+    /* 文件名字属性 */
+    .filename {
+        color: #000;
+        text-align: center;
+        margin-top: 0px;
+    }
+
+    /* 图片属性 */
+    .myimg {
+        width: 75px;
+        transition: all 1.5s;
+        /* 添加盒子阴影 */
+        /* box-shadow: 10px 10px 10px -4px rgba(0, 0, 0, 0.3); */
+    }
+
+    .app01 a img:hover {
+        transform: rotateY(360deg);
+        /*旋转360°*/
+    }
+
+    /* 用户信息 */
+    .userinfo {
+        font-family: 'icomoon';
+    }
+
+    /* 上一页按钮 */
+    .prev {
+        position: absolute;
+        left: 30%;
+        top: 600px;
+        width: 100px;
+        height: 30px;
+        background-color: #f5f5f5;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 5px;
+    }
+
+    /* 下一页按钮 */
+    .next {
+        position: absolute;
+        right: 30%;
+        top: 600px;
+        width: 100px;
+        height: 30px;
+        background-color: #f5f5f5;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 5px;
+    }
+
+    /***********************************************************************************
+
+************************************************************************************/
