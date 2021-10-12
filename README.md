@@ -13,7 +13,6 @@
     cat .git/config                                     //查看你的设置是否生效 <br>
 </pre>
     </p>
-    <hr>
 <pre>
     <h6>怎么提交代码</h6>
     git fetch                                           //同步远端服务器内容到本地分支 <br>
@@ -24,7 +23,6 @@
     git log --graph                                     //查看修改历史 <br>
     git push origin master                              //将修改的文件，推送到GitHub <br>
 </pre>
-    <hr>
 <pre>
     <h6>各目录介绍</h6>
     js：                                                //夹存放--html所需JavaScript脚本文件 <br>
@@ -49,7 +47,6 @@
         或者 http://localhost:8080/app.html <br>
     6、服务器启动成功 <br>
 </pre>
-    <hr>
 <pre>
 <h6>目录结构：</h6>
     ├── Readme.md // help
