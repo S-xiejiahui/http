@@ -1,7 +1,7 @@
 # http服务器搭建
->搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！</p>
-<pre>
+>搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！
 *下载仓储
+<pre>
     git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
     cd http_v1.0 <br>
     chmod 777 ./ -R 
@@ -12,8 +12,8 @@
     git config --global user.email e-mail@qq.com        //设置你的ssh邮箱 <br>
     cat .git/config                                     //查看你的设置是否生效 <br>
 </pre>
-<pre>
 ### 怎么提交代码:
+<pre>
     git fetch                                           //同步远端服务器内容到本地分支 <br>
     git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码， <br>
                                                         //则使用这条命令，同步 <br>
@@ -22,8 +22,8 @@
     git log --graph                                     //查看修改历史 <br>
     git push origin master                              //将修改的文件，推送到GitHub <br>
 </pre>
-<pre>
 ### 各目录介绍:
+<pre>
     js：                                                //夹存放--html所需JavaScript脚本文件 <br>
     css：                                               //夹存放--html所需的css文件 <br>
     src：                                               //夹存放--c语言web服务器文件 <br>
@@ -32,8 +32,8 @@
     app.html：                                          //主页面 <br>
     http：                                              //web服务器--可执行文件 <br>
 </pre>
-<pre>
 ### 服务器怎么运行：
+<pre>
     1、make编译工程，将会生产一个http的可执行文件 <br>
     2、运行服务器：./http（默认端口号8080） <br>
         或者 ./http 8080（8080指服务器的端口号，可自行指定） <br>
@@ -45,8 +45,8 @@
         或者 http://localhost:8080/app.html <br>
     6、服务器启动成功 <br>
 </pre>
-<pre>
 ### 目录结构:
+<pre>
     ├── Readme.md // help
     ├── http // 应用
     ├── ap.html // 页面
