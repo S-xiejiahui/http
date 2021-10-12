@@ -1,16 +1,13 @@
-    <h1 style="text-align: center;">http服务器搭建</h1>
-    <hr>
-    <p> 搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！</p>
-    <hr>
-    <p>
+#http服务器搭建
+>搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！</p>
 <pre>
     <h6>下载仓储</h6>
     git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
     cd http_v1.0 <br>
     chmod 777 ./ -R 
     <h6>以下内容只需执行一次</h6>
-    ssh-keygen -t rsa -C "e-mail@qq.com"                 //获取ssh-key密钥，GitHub服务器添加你的密钥，你才能有上传代码权限 <br>
-    cat /home/xjh/.ssh/id_rsa.pub                       //显示ssh-key <br>
+    ssh-keygen -t rsa -C "e-mail@qq.com"                 //获取ssh-key密钥， <br>
+    cat /home/xjh/.ssh/id_rsa.pub                       //GitHub服务器添加你的密钥，你才能有上传代码权限 <br>
     git config --global user.name "username"            //设置你的ssh名 <br>
     git config --global user.email e-mail@qq.com        //设置你的ssh邮箱 <br>
     cat .git/config                                     //查看你的设置是否生效 <br>
