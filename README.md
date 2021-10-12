@@ -1,7 +1,7 @@
-```http服务器搭建
+# http服务器搭建
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！</p>
 <pre>
-    <h6>下载仓储</h6>
+*下载仓储
     git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
     cd http_v1.0 <br>
     chmod 777 ./ -R 
@@ -13,7 +13,7 @@
     cat .git/config                                     //查看你的设置是否生效 <br>
 </pre>
 <pre>
-    <h6>怎么提交代码</h6>
+*怎么提交代码:
     git fetch                                           //同步远端服务器内容到本地分支 <br>
     git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码， <br>
                                                         //则使用这条命令，同步 <br>
@@ -23,7 +23,7 @@
     git push origin master                              //将修改的文件，推送到GitHub <br>
 </pre>
 <pre>
-    <h6>各目录介绍</h6>
+*各目录介绍:
     js：                                                //夹存放--html所需JavaScript脚本文件 <br>
     css：                                               //夹存放--html所需的css文件 <br>
     src：                                               //夹存放--c语言web服务器文件 <br>
@@ -33,7 +33,7 @@
     http：                                              //web服务器--可执行文件 <br>
 </pre>
 <pre>
-    <h5>服务器怎么运行：</h5>
+*服务器怎么运行：
     1、make编译工程，将会生产一个http的可执行文件 <br>
     2、运行服务器：./http（默认端口号8080） <br>
         或者 ./http 8080（8080指服务器的端口号，可自行指定） <br>
@@ -46,7 +46,7 @@
     6、服务器启动成功 <br>
 </pre>
 <pre>
-<h6>目录结构：</h6>
+*目录结构:
     ├── Readme.md // help
     ├── http // 应用
     ├── ap.html // 页面
