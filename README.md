@@ -12,7 +12,6 @@
     git config --global user.email e-mail@qq.com        //设置你的ssh邮箱 <br>
     cat .git/config                                     //查看你的设置是否生效 <br>
 </pre>
-    </p>
 <pre>
     <h6>怎么提交代码</h6>
     git fetch                                           //同步远端服务器内容到本地分支 <br>
@@ -33,8 +32,7 @@
     app.html：                                          //主页面 <br>
     http：                                              //web服务器--可执行文件 <br>
 </pre>
-    <hr>
-    <pre>
+<pre>
     <h5>服务器怎么运行：</h5>
     1、make编译工程，将会生产一个http的可执行文件 <br>
     2、运行服务器：./http（默认端口号8080） <br>
