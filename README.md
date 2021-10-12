@@ -1,7 +1,28 @@
 # http服务器搭建
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！
-## test
-    123456789       >ssss<br>
+## 目录结构:
+<pre>
+    ├── Readme.md // help
+    ├── http // 应用
+    ├── ap.html // 页面
+    ├── Makefile // 编译工具
+    ├── src // 服务器C语言代码
+    │ ├── cJSON.c
+    │ ├── cJSON.h // 开发环境
+    │ ├── main.c // 实验
+    │ ├── main.h // 配置控制
+    │ └── ... // 测试环境
+    ├── icon //图片文件夹
+    │ ├── ...
+    │ └── ...
+    ├── css //html所需的css文件
+    │ ├── ...
+    │ └── ...
+    └── js //html所需的css文件
+    │ ├── ...
+    │ └── ...
+    └── ...
+</pre>
 ### 下载仓储
 <pre>
     git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
@@ -17,7 +38,7 @@
 ### 怎么提交代码:
 <pre>
     git fetch                                           //同步远端服务器内容到本地分支 <br>
-    git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码， <br>
+    git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码 <br>
                                                         //则使用这条命令，同步 <br>
     git add ...                                         //添加修改的文件 <br>
     git commit -m "..."                                 //添加修改此次文件的备注 <br>
@@ -46,27 +67,4 @@
     5、访问服务器：浏览器输入 http://192.168.13.132:8080/app.html 即可 <br>
         或者 http://localhost:8080/app.html <br>
     6、服务器启动成功 <br>
-</pre>
-### 目录结构:
-<pre>
-    ├── Readme.md // help
-    ├── http // 应用
-    ├── ap.html // 页面
-    ├── Makefile // 编译工具
-    ├── src // 服务器C语言代码
-    │ ├── cJSON.c
-    │ ├── cJSON.h // 开发环境
-    │ ├── main.c // 实验
-    │ ├── main.h // 配置控制
-    │ └── ... // 测试环境
-    ├── icon //图片文件夹
-    │ ├── ...
-    │ └── ...
-    ├── css //html所需的css文件
-    │ ├── ...
-    │ └── ...
-    └── js //html所需的css文件
-    │ ├── ...
-    │ └── ...
-    └── ...
 </pre>
