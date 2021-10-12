@@ -46,7 +46,9 @@ function get_file_from_server() {
 /***********************************************************************************
                             加载文件
 ************************************************************************************/
-function load_all_file(data) {
+function load_all_file(data) 
+{
+    var file_count = 0;
     $.each(data, function (obj_name, obj_key) {
         // console.log('00000');
         // console.log('type=' + obj_name + '-----');
@@ -70,16 +72,36 @@ function load_all_file(data) {
             p.className = "filename";
             p.innerHTML = name;
 
-            if (type == 'dir') {
-                img.src = "icon/img/File.png";
-            } else if (type == '.html') {
+            if (type == 'dir') 
+            {
+                if(name == 'Makefile')
+                {
+                    img.src = "icon/icon/Makefile.png";
+                }
+                else
+                    img.src = "icon/img/File.png";
+            } 
+            else if (type == '.html') 
+            {
                 img.src = "icon/img/lianjiewenjian.png";
             }
-
+            else
+            {
+                img.src = "icon/img/weizhiwenjian.png";
+            }
             var app01 = document.getElementsByClassName("app01");
             app01[0].appendChild(a); //通过类名添加新标签
             a.appendChild(img);
             a.appendChild(p);
+
+            if(++file_count % 5 == 0)
+            {
+                // 清除浮动
+                var div = document.createElement("div");
+                div.style = "clear: both;";
+                app01[0].appendChild(div);
+            }
+            
         })
     })
 
