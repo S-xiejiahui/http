@@ -15,7 +15,9 @@ OBJS := $(patsubst %.c, %.o, $(CSRCS))
 $(TARGET): $(OBJS) 
 	$(CC) $+ $(INCS) $(LIBS) -o $@  $(CFLAG)
 
-all:
+all: $(OBJS)
+	$(CC) $+ $(INCS) $(LIBS) -o $(TARGET)  $(CFLAG)
+	@chmod 777 ./ -R
 	@git config --add core.filemode false
 
 %.o:%.c
