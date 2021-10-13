@@ -1,6 +1,19 @@
 # http服务器搭建
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！
-## 目录结构:
+## 服务器怎么运行：
+<pre>
+    1、make编译工程，将会生产一个http的可执行文件
+    2、运行服务器：./http（默认端口号8080）
+        或者 ./http 8080（8080指服务器的端口号，可自行指定）
+    3、ifconfig查看本地ip地址
+    4、修改app.js文件中的function get_file_from_server()函数
+        将 url: "http://192.168.13.132:8080/app.html/allfile" 中的IP地址和端口号改成你的主机地址
+            或者把ip地址改为 localhost:8080, 但这样修改，将只能在Ubuntu的浏览器中访问服务器
+    5、访问服务器：浏览器输入 http://192.168.13.132:8080/app.html 即可
+        或者 http://localhost:8080/app.html
+    6、服务器启动成功
+</pre>
+### 目录结构:
 <pre>
     ├── Readme.md       // help
     ├── http            // web服务器--可执行文件
@@ -22,19 +35,6 @@
     │ ├── ...
     │ └── ...
     └── ...
-</pre>
-### 服务器怎么运行：
-<pre>
-    1、make编译工程，将会生产一个http的可执行文件
-    2、运行服务器：./http（默认端口号8080）
-        或者 ./http 8080（8080指服务器的端口号，可自行指定）
-    3、ifconfig查看本地ip地址
-    4、修改app.js文件中的function get_file_from_server()函数
-        将 url: "http://192.168.13.132:8080/app.html/allfile" 中的IP地址和端口号改成你的主机地址
-            或者把ip地址改为 localhost:8080, 但这样修改，将只能在Ubuntu的浏览器中访问服务器
-    5、访问服务器：浏览器输入 http://192.168.13.132:8080/app.html 即可
-        或者 http://localhost:8080/app.html
-    6、服务器启动成功
 </pre>
 ### 下载仓储
 <pre>
