@@ -9,9 +9,9 @@
 <pre>
     1、make(make all)编译工程，将会生成一个 http 的可执行文件
     2、使用make update命令，将文件中的 ip 地址更改为你本地的 ip 地址
-    3、运行服务器：./http（默认端口号8080）<br>
+    3、运行服务器：./http（默认端口号8080）
       或者 ./http 8080（8080指服务器的端口号，可自行指定）
-    4、访问服务器：浏览器输入 http://Ip地址:8080/app.html (ex：http://192.168.1.1:8080/app.html) <br>
+    4、访问服务器：浏览器输入 http://Ip地址:8080/app.html (ex：http://192.168.1.1:8080/app.html) 
       或者 http://localhost:8080/app.html (注意：ubuntu上可以，但是用Windows浏览器访问不了)
     5、服务器启动成功
 </pre>
