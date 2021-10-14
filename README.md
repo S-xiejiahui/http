@@ -6,13 +6,15 @@
 >git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
 >ps： 1、Ubuntu要能联网，2、如果不能联网，点击上方的Code下载zip压缩包
 ### 服务器怎么运行：
-* 1、make(make all)编译工程，将会生成一个 http 的可执行文件
-* 2、使用make update命令，将文件中的 ip 地址更改为你本地的 ip 地址
-* 3、运行服务器：./http（默认端口号8080）<br>
-    或者 ./http 8080（8080指服务器的端口号，可自行指定）
-* 4、访问服务器：浏览器输入 http://Ip地址:8080/app.html (ex：http://192.168.1.1:8080/app.html) <br>
-    或者 http://localhost:8080/app.html (注意：ubuntu上可以，但是用Windows浏览器访问不了)
-* 5、服务器启动成功
+<pre>
+    1、make(make all)编译工程，将会生成一个 http 的可执行文件
+    2、使用make update命令，将文件中的 ip 地址更改为你本地的 ip 地址
+    3、运行服务器：./http（默认端口号8080）<br>
+      或者 ./http 8080（8080指服务器的端口号，可自行指定）
+    4、访问服务器：浏览器输入 http://Ip地址:8080/app.html (ex：http://192.168.1.1:8080/app.html) <br>
+      或者 http://localhost:8080/app.html (注意：ubuntu上可以，但是用Windows浏览器访问不了)
+    5、服务器启动成功
+</pre>
 ### 目录结构:
 <pre>
     ├── Readme.md       // help
@@ -37,6 +39,8 @@
     └── ...
 </pre>
 ### 配置git-ssh，让Ubuntu能上传文件到我的GitHub
+>ps 1：记得将下面的e-mail修改为你的邮箱，然后一直点回车，默认设置即可
+>ps 2：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可
 <pre>
     ssh-keygen -t rsa -C "e-mail@qq.com"                //获取ssh-key密钥
     git config --global user.name "username"            //设置你的ssh名
@@ -44,8 +48,6 @@
     cat .git/config                                     //查看你的设置是否生效
     cat /home/xjh/.ssh/id_rsa.pub                       //显示ssh密钥
 </pre>
-    * ps 1：记得将下面的e-mail修改为你的邮箱，然后一直点回车，默认设置即可
-    * ps 2：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可
 ### 怎么提交代码:
 <pre>
     git fetch                                           //同步远端服务器内容到本地分支
