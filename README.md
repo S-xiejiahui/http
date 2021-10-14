@@ -1,6 +1,7 @@
 # http服务器搭建
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！<br>
 >每日更新优化的内容位于该文件的最下方<br>
+---
 ### 下载仓储
 >使用Ubuntu git工具，克隆我的工程代码：
 >git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
