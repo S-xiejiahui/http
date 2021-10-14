@@ -2,9 +2,11 @@
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！<br>
 >每日更新优化的内容位于该文件的最下方<br>
 ### 下载仓储
->使用Ubuntu git工具，克隆我的工程代码：
->git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
->ps： 1、Ubuntu要能联网，2、如果不能联网，点击上方的Code下载zip压缩包
+<pre>
+    使用Ubuntu git工具，克隆我的工程代码：
+    git clone https://github.com/S-xiejiahui/http_v1.0.git 
+    ps： 1、Ubuntu要能联网，2、如果不能联网，点击上方的Code下载zip压缩包
+</pre>
 ### 服务器怎么运行：
 <pre>
     1、make(make all)编译工程，将会生成一个 http 的可执行文件
@@ -16,8 +18,10 @@
     5、服务器启动成功
 </pre>
 ### 配置git-ssh，让Ubuntu能上传文件到我的GitHub
->ps 1：记得将下面的e-mail修改为你的邮箱，然后一直点回车，默认设置即可 <br>
->ps 2：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可
+<pre>
+    1：记得将下面的e-mail修改为你的邮箱，然后一直点回车，默认设置即可
+    2：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可
+</pre>
 <pre>
     ssh-keygen -t rsa -C "e-mail@qq.com"                //获取ssh-key密钥
     git config --global user.name "username"            //设置你的ssh名
