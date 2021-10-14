@@ -35,16 +35,16 @@
     └── ...
 </pre>
 ### 下载仓储
+>git clone https://github.com/S-xiejiahui/http_v1.0.git
+### 配置git-ssh，让Ubuntu能上传文件到我的GitHub
 <pre>
-    git clone https://github.com/S-xiejiahui/http_v1.0.git
-    cd http_v1.0
-    chmod 777 ./ -R 
-    <h6>以下内容只需执行一次</h6>
     ssh-keygen -t rsa -C "e-mail@qq.com"                //获取ssh-key密钥
-    cat /home/xjh/.ssh/id_rsa.pub                       //GitHub服务器添加你的密钥，你才能有上传代码权限
+    /*ps：记得将上述的e-mail修改为你的邮箱，然后一直点回车，默认设置即可*/
     git config --global user.name "username"            //设置你的ssh名
     git config --global user.email e-mail@qq.com        //设置你的ssh邮箱
     cat .git/config                                     //查看你的设置是否生效
+    cat /home/xjh/.ssh/id_rsa.pub                       //显示ssh密钥
+    /* ps：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可 */
 </pre>
 ### 怎么提交代码:
 <pre>
