@@ -15,6 +15,26 @@
       或者 http://localhost:8080/app.html (注意：ubuntu上可以，但是用Windows浏览器访问不了)
     5、服务器启动成功
 </pre>
+### 配置git-ssh，让Ubuntu能上传文件到我的GitHub
+>ps 1：记得将下面的e-mail修改为你的邮箱，然后一直点回车，默认设置即可 <br>
+>ps 2：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可
+<pre>
+    ssh-keygen -t rsa -C "e-mail@qq.com"                //获取ssh-key密钥
+    git config --global user.name "username"            //设置你的ssh名
+    git config --global user.email e-mail@qq.com        //设置你的ssh邮箱
+    cat .git/config                                     //查看你的设置是否生效
+    cat /home/xjh/.ssh/id_rsa.pub                       //显示ssh密钥
+</pre>
+### 怎么提交代码:
+<pre>
+    git fetch                                           //同步远端服务器内容到本地分支
+    git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码
+                                                        //则使用这条命令，同步
+    git add ...                                         //添加修改的文件
+    git commit -m "..."                                 //添加修改此次文件的备注
+    git log --graph                                     //查看修改历史
+    git push origin master                              //将修改的文件，推送到GitHub
+</pre>
 ### 目录结构:
 <pre>
     ├── Readme.md       // help
@@ -37,26 +57,6 @@
     │ ├── ...
     │ └── ...
     └── ...
-</pre>
-### 配置git-ssh，让Ubuntu能上传文件到我的GitHub
->ps 1：记得将下面的e-mail修改为你的邮箱，然后一直点回车，默认设置即可
->ps 2：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可
-<pre>
-    ssh-keygen -t rsa -C "e-mail@qq.com"                //获取ssh-key密钥
-    git config --global user.name "username"            //设置你的ssh名
-    git config --global user.email e-mail@qq.com        //设置你的ssh邮箱
-    cat .git/config                                     //查看你的设置是否生效
-    cat /home/xjh/.ssh/id_rsa.pub                       //显示ssh密钥
-</pre>
-### 怎么提交代码:
-<pre>
-    git fetch                                           //同步远端服务器内容到本地分支
-    git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码
-                                                        //则使用这条命令，同步
-    git add ...                                         //添加修改的文件
-    git commit -m "..."                                 //添加修改此次文件的备注
-    git log --graph                                     //查看修改历史
-    git push origin master                              //将修改的文件，推送到GitHub
 </pre>
 ### 每日更新内容（记录每一点进步）：
 >[2021/10/13]优化：解决访问服务器，无法加载css和svg图片问题（终于找到错误了：用时两天）<br>
