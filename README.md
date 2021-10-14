@@ -1,12 +1,10 @@
 # http服务器搭建
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！<br>
 >每日更新优化的内容位于该文件的最下方<br>
----
 ### 下载仓储
 >使用Ubuntu git工具，克隆我的工程代码：
 >git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
 >ps： 1、Ubuntu要能联网，2、如果不能联网，点击上方的Code下载zip压缩包
----
 ### 服务器怎么运行：
 * 1、make(make all)编译工程，将会生成一个 http 的可执行文件
 * 2、使用make update命令，将文件中的 ip 地址更改为你本地的 ip 地址
@@ -15,7 +13,6 @@
 * 4、访问服务器：浏览器输入 http://Ip地址:8080/app.html (ex：http://192.168.1.1:8080/app.html) <br>
     或者 http://localhost:8080/app.html (注意：ubuntu上可以，但是用Windows浏览器访问不了)
 * 5、服务器启动成功
----
 ### 目录结构:
 <pre>
     ├── Readme.md       // help
