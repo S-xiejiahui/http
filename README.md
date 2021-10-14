@@ -4,7 +4,8 @@
 ### 下载仓储
 >使用Ubuntu git工具，克隆我的工程代码：
 >git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
->ps：1)Ubuntu要能联网，2)如果不能联网，点击上方的Code下载zip压缩包
+>ps：
+>    1、Ubuntu要能联网，2、如果不能联网，点击上方的Code下载zip压缩包
 ## 服务器怎么运行：
 <pre>
     1、make(make all)编译工程，将会生成一个 http 的可执行文件
