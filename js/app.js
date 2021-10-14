@@ -2,15 +2,17 @@
                             全局变量
 ************************************************************************************/
 var x = 1, idx = 1, max = 24, number = 66;
-var _IP_   = "192.168.13.132";
-var _URL_  = "http://" + _URL_IP_ + ":8080/app.html/allfile"
+var _IP_ = "192.168.3.13";
+var _URL_ = "http://" + _IP_ + ":8080/app.html/allfile"
 /***********************************************************************************
                                 页面打开即允许192.168.1.1
 ************************************************************************************/
-window.onload = function () {
+window.onload = function ()
+{
     get_file_from_server();
 
-    setInterval(function () {
+    setInterval(function ()
+    {
         var d = new Date();
         var year = d.getFullYear();
         var month = d.getMonth() + 1 > 9 ? d.getMonth() + 1 : '0' + d.getMonth() + 1;
@@ -27,16 +29,19 @@ window.onload = function () {
 /***********************************************************************************
                             GET、POST请求
 ************************************************************************************/
-function get_file_from_server() {
+function get_file_from_server()
+{
     $.ajax({
         url: _URL_,
         dataType: 'json',
         type: "GET",
-        success: function (data) {
+        success: function (data)
+        {
             console.log(data);
             load_all_file(data);
         },
-        error: function () {
+        error: function ()
+        {
             console.log("error");
         }
     });
@@ -47,10 +52,12 @@ function get_file_from_server() {
 function load_all_file(data) 
 {
     var file_count = 0;
-    $.each(data, function (obj_name, obj_key) {
+    $.each(data, function (obj_name, obj_key)
+    {
         // console.log('00000');
         // console.log('type=' + obj_name + '-----');
-        $.each(obj_key, function (name, key) {
+        $.each(obj_key, function (name, key)
+        {
             // console.log('name=' + name + ';' + 'key=' + key);
             var first = key.indexOf("=");
             var centre = key.indexOf(";");
@@ -72,13 +79,13 @@ function load_all_file(data)
 
             if (type == 'dir') 
             {
-                if(name == 'Makefile')
+                if (name == 'Makefile')
                 {
                     img.src = "icon/icon/Makefile.png";
                 }
                 else
                     img.src = "icon/img/File.png";
-            } 
+            }
             else if (type == '.html') 
             {
                 img.src = "icon/img/lianjiewenjian.png";
@@ -92,14 +99,14 @@ function load_all_file(data)
             a.appendChild(img);
             a.appendChild(p);
 
-            if(++file_count % 5 == 0)
+            if (++file_count % 5 == 0)
             {
                 // 清除浮动
                 var div = document.createElement("div");
                 div.style = "clear: both;";
                 app01[0].appendChild(div);
             }
-            
+
         })
     })
 
@@ -179,12 +186,17 @@ function load_all_file(data)
 ************************************************************************************/
 
 var oli = document.getElementsByTagName("li");
-for (var i = 0; i < oli.length; i++) {
-    (function (j) {
-        oli[j].onclick = function () {
+for (var i = 0; i < oli.length; i++)
+{
+    (function (j)
+    {
+        oli[j].onclick = function ()
+        {
             oli[j].className = 'active';
-            for (var k = 0; k < oli.length; k++) {
-                if (k != j) {
+            for (var k = 0; k < oli.length; k++)
+            {
+                if (k != j)
+                {
                     console.log(k);
                     oli[k].className = '';
                 }

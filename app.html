@@ -7,25 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>app设计</title>
     <link rel="shortcut icon" href="icon/ico/xjh.ico">
-    <link rel="stylesheet" type="text/css" href="css/app.css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="css/app.css" charset="utf-8" />
+    <style>
+        .svg {
+            width: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <!-- 左边导航栏 -->
     <ul class="menu">
         <li> <a href="#" style="color: green;">USER MENU</a> </li>
-        <li><a href="#" id="home"> Home</a></li>
-        <li><a href="#" id="file"> File</a> </li>
-        <li><a href="#" id="set"> Set</a></li>
-        <li><a href="#" id="about"> About</a></li>
-        <li><img src="icon/svg/1.svg" alt=""></li>
+        <li><a href="#" id="home"><img src="icon/svg/home.svg" class="svg" alt="">&nbsp; Home</a></li>
+        <li><a href="#" id="file"><img src="icon/svg/file.svg" class="svg" alt="">&nbsp; File</a> </li>
+        <li><a href="#" id="set"><img src="icon/svg/set.svg" class="svg" alt="">&nbsp; Set</a></li>
+        <li><a href="#" id="about"><img src="icon/svg/about.svg" class="svg" alt="">&nbsp; About</a></li>
     </ul>
     <!-- 上方用户信息 -->
     <div class="app">
         <div class="userinfo">
             <p>
-                <span> username: xjh</span>
-                <span style="float: right; margin-right: 20px;" id="time"></span>
+                <span><img src="icon/svg/people.svg" class="svg" alt="">&nbsp; username: xjh</span>
+                <span style="float: right; margin-right: 20px;"><img src="icon/svg/time.svg" class="svg" alt="">
+                    <i id="time"></i></span>
             </p>
             <hr>
         </div>
