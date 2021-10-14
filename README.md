@@ -1,7 +1,7 @@
 # http服务器搭建
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！<br>
 >每日更新优化的内容位于该文件的最下方<br>
-### 下载仓储
+## 下载仓储
 >使用Ubuntu git工具，克隆我的工程代码：
 >git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
 >ps： 1、Ubuntu要能联网，2、如果不能联网，点击上方的Code下载zip压缩包
@@ -48,7 +48,7 @@
     cat /home/xjh/.ssh/id_rsa.pub                       //显示ssh密钥
     /* ps：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可 */
 </pre>
-### 怎么提交代码:
+#### 怎么提交代码:
 <pre>
     git fetch                                           //同步远端服务器内容到本地分支
     git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码
