@@ -1,11 +1,11 @@
 # http服务器搭建
 >搭建这个服务器的原因是兴趣所在；服务器很简陋，以后将一步步优化，加油！！<br>
 >每日更新优化的内容位于该文件的最下方<br>
-## 下载仓储
+### 下载仓储
 >使用Ubuntu git工具，克隆我的工程代码：
 >git clone https://github.com/S-xiejiahui/http_v1.0.git <br>
 >ps： 1、Ubuntu要能联网，2、如果不能联网，点击上方的Code下载zip压缩包
-## 服务器怎么运行：
+### 服务器怎么运行：
 <pre>
     1、make(make all)编译工程，将会生成一个 http 的可执行文件
     2、使用make update命令，将文件中的 ip 地址更改为你本地的 ip 地址
@@ -48,7 +48,7 @@
     cat /home/xjh/.ssh/id_rsa.pub                       //显示ssh密钥
     /* ps：本地配置已设置完毕，等待我将你的ssh密钥加入GitHub即可 */
 </pre>
-#### 怎么提交代码:
+### 怎么提交代码:
 <pre>
     git fetch                                           //同步远端服务器内容到本地分支
     git rebase origin master                            //如果有打印信息，说明你本地代码落后，GitHub上的代码
@@ -58,6 +58,6 @@
     git log --graph                                     //查看修改历史
     git push origin master                              //将修改的文件，推送到GitHub
 </pre>
-#### 每日更新内容（记录每一点进步）：
+### 每日更新内容（记录每一点进步）：
 >[2021/10/13]优化：解决访问服务器，无法加载css和svg图片问题（终于找到错误了：用时两天）<br>
 >[2021/10/14]优化：新增make update方法，解决下载代码后，js文件的ip地址不是本地地址，造成无法正确访问服务器的问题<br>
