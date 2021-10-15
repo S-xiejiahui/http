@@ -45,11 +45,11 @@
     ├── http            // web服务器--可执行文件
     ├── app.html        // 主页面
     ├── Makefile        // 编译工具链
-    ├── src             // c语言web服务器文件
-    │ ├── cJSON.c
-    │ ├── cJSON.h
-    │ ├── main.c
-    │ ├── main.h
+    ├── c-web-server    // c语言web服务器文件
+    │ ├── inc
+    │ ├── src
+    │ ├── lib
+    │ ├── lib-h
     │ └── ...
     ├── icon            //图片文件夹
     │ ├── ...
