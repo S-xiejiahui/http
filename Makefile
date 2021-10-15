@@ -12,7 +12,8 @@ INCS  += -I./c-web-server/lib-h
 CFLAG := -lm -lpthread
 LIBS  := -L./c-web-server/lib
 # The file object
-OBJS  := $(patsubst %.c, %.o, $(CSRCS))
+OBJ   := ./c-web-server/obj
+OBJS  := $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(CSRCS))
 
 # get local ip addr
 LOACL_IP_ADDR = $(shell ifconfig | grep inet | grep -v inet6 | grep -v 127 | sed 's/^[ \t]*//g' | cut -d ' ' -f2)
@@ -24,14 +25,16 @@ OLD_IP = $(shell echo $(JS_FILE_IP_ADDR)| cut -d ' ' -f 1)
 all: $(TARGET)
 $(TARGET): $(OBJS) 
 	$(CC) $+ $(INCS) $(LIBS) -o $@  $(CFLAG)
-%.o:%.c
+$(OBJ)/%.o:$(SRC)/%.c
 	$(CC) -c $< $(INCS) -o $@ $(CFLAG)
 
 # Update IP to match local
 files := js/app.js
 update:
 	@sed -i 's/$(OLD_IP)/$(LOACL_IP_ADDR)/' $(files)
-	@echo "replace [\033[33m$(files)'s\033[0m] old_IP(\033[36m$(OLD_IP)\033[0m) as local_IP(\033[31m$(LOACL_IP_ADDR)\033[0m)"
+	@echo "\033[33mUpdate success:\033[0m"
+	@echo "replace \033[36mold_IP($(OLD_IP)\033[0m) as \033[31mlocal_IP($(LOACL_IP_ADDR)\033[0m)"
+	@mkdir $(OBJ)
 	@chmod 777 ./ -R
 	@git config --add core.filemode false
 

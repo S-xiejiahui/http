@@ -32,7 +32,7 @@ window.onload = function ()
 function get_file_from_server()
 {
     $.ajax({
-        url: _URL_,
+        url: "cgi-xjh/get_file_info",
         dataType: 'json',
         type: "GET",
         success: function (data)
@@ -46,6 +46,27 @@ function get_file_from_server()
         }
     });
 }
+
+// $(document).ready(function () {
+ 
+//     var schoolList={
+//      "pageCount": "2",
+//      "pageIndex": "1",
+//      "sign": "1",
+//      "uniPayId": "9dc1308bab2b4b49987a0c12dd7339f5"
+//    }
+//     $.ajax({
+//            type:"POST",
+//            url:"/schoolroll/insert",
+//            contentType: "application/json", //必须这样写
+//            dataType:"json",
+//            data:JSON.stringify(schoolList),//schoolList是你要提交是json字符串
+//            success:function (data) {
+    
+//            }
+    
+//        })
+//    })
 /***********************************************************************************
                             加载文件
 ************************************************************************************/

@@ -1,11 +1,4 @@
-/*
- * @filename:    functionLib.c
- * @author:      Flyuz
- * @date:        2018年6月25日
- * @description: 辅助函数
- */
-
-#include "main.h"
+#include "public.h"
 
 void unix_error(char *msg)
 {
@@ -258,43 +251,6 @@ ssize_t Rio_readnb(rio_t *rp, void *usrbuf, size_t n)
     return nbytes;
 }
 
-/*打开并返回监听描述符*/
-int open_listenfd(char *port)
-{
-    int listenfd, optval = 1;
-    struct sockaddr_in serveraddr;
-
-    if ((listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-    {
-        return -1;
-    }
-
-    if (setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR,
-                   (const void *)&optval, sizeof(int)) < 0)
-        return -1;
-
-    bzero((char *)&serveraddr, sizeof(serveraddr));
-
-    serveraddr.sin_family = AF_INET;
-    serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    serveraddr.sin_port = htons((unsigned short)atoi(port));
-
-    if (bind(listenfd, (SA *)&serveraddr, sizeof(serveraddr)) < 0)
-        return -1;
-
-    if (listen(listenfd, LISTENQ) < 0)
-        return -1;
-
-    return listenfd;
-}
-
-int Open_listenfd(char *port)
-{
-    int rc;
-    if ((rc = open_listenfd(port)) < 0)
-        unix_error("open_listenfd error");
-    return rc;
-}
 //信号处理
 handler_t *signal_r(int signum, handler_t *handler)
 {
