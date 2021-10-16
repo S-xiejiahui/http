@@ -2,6 +2,7 @@
 #include "public.h"
 #include "server.h"
 #include "cJSON.h"
+#include "file.h"
 
 #include <dirent.h>
 #include <string.h>
@@ -9,32 +10,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-/****************************************************
- * @brief  由文件名得出文件的类型
- * @note
- * @param  fd:
- * @param  *index:
- * @retval None
- ***************************************************/
-static void get_filetype(char *filename, char *filetype)
-{
-    if (strstr(filename, ".html") || strstr(filename, ".php"))
-        strcpy(filetype, "text/html");
-    else if (strstr(filename, ".css"))
-        strcpy(filetype, "text/css");
-    else if (strstr(filename, ".js"))
-        strcpy(filetype, "text/javascript");
-    else if (strstr(filename, ".png"))
-        strcpy(filetype, "image/png");
-    else if (strstr(filename, ".jpg"))
-        strcpy(filetype, "image/jpeg");
-    else if (strstr(filename, ".svg"))
-        strcpy(filetype, "image/svg+xml");
-    else if (strstr(filename, ".gif"))
-        strcpy(filetype, "image/gif");
-    else
-        strcpy(filetype, "text/plain");
-}
 /****************************************************
  * @brief  解析URI 为 filename 和 CGI 参数
  * @note
@@ -86,8 +61,8 @@ int parse_uri(char *uri, char *filename, char *cgiargs)
  ***************************************************/
 void serve_static(int fd, char *filename, int filesize)
 {
-    char body[MAXBUF], filetype[64];
-    get_filetype(filename, filetype);
+    char body[MAXBUF];
+    char *filetype = get_filetype(filename);
     
     int count = 0;
     count += snprintf(body + count, sizeof(body), "HTTP/1.1 200 OK\r\n");
@@ -153,83 +128,67 @@ void get_file_content(int fd, char *url)
     serve_dynamic(fd, filename, cgi_argv);
 }
 /****************************************************
- * @brief  get file info
- * @note
- * @param  *pathname:
- * @param  *info:
- * @param  size:
- * @retval None
+ * @brief  only send msg of file
+ * @note   
+ * @note   
  ***************************************************/
-void get_file_info(char *pathname, char *info, int size)
+void send_response_file(int fd, char *filename)
 {
-    if (NULL == pathname || NULL == info)
+    if(NULL == filename)
     {
+        fprintf(stderr, "[%s][%d]input is NULL\n", __FILE__, __LINE__);
         return;
     }
-    char *p = strrchr(pathname, '.');
-    if (p)
-    {
-        snprintf(info, 64, "type=%s;size=%d", p, size);
-    }
-    else
-    {
-        snprintf(info, 64, "type=%s;size=%d", "dir", size);
-    }
-
-    return;
+    char body[20480] = {0};
+    char *filetype = get_filetype(filename);
+    int  filesize = get_filesize(filename);
+    
+    int count = 0;
+    count += snprintf(body + count, sizeof(body), "HTTP/1.1 200 OK\r\n");
+    count += snprintf(body + count, sizeof(body), "Server: XJH Web Server\r\n");
+    count += snprintf(body + count, sizeof(body), "Connection:close\r\n");
+    count += snprintf(body + count, sizeof(body), "Content-length: %d\r\n", filesize);
+    count += snprintf(body + count, sizeof(body), "Content-type: %s;charset=utf-8\r\n\r\n", filetype);
+    Rio_writen(fd, body, strlen(body));
 }
 /****************************************************
- * @brief  post file info
- * @note
- * @param  fd:
- * @retval None
+ * @brief  only send msg of json type
+ * @note   
+ * @note   
  ***************************************************/
-void get_allfile_info(int fd, cJSON *root)
+void send_response_msg(int fd, char *send_msg, int msg_length)
 {
-    struct stat st;
-    char pathname[64] = {0};
-    char temp[64] = {0};
-    char suffix[64] = {0};
-
-    cJSON *obj = cJSON_CreateObject();
-    cJSON *obj_reg = cJSON_CreateObject();
-    cJSON *obj_dir = cJSON_CreateObject();
-
-    cJSON_AddItemToObject(obj, "reg", obj_reg);
-    cJSON_AddItemToObject(obj, "dir", obj_dir);
-
-    DIR *dir = opendir("./");
-    struct dirent *read_dir = NULL;
-    while (read_dir = readdir(dir))
-    {
-        if (!strcmp(read_dir->d_name, ".") || !strcmp(read_dir->d_name, ".."))
-        {
-            continue;
-        }
-        stat(read_dir->d_name, &st);
-        get_file_info(read_dir->d_name, suffix, st.st_size);
-        if (S_ISDIR(st.st_mode))
-        {
-            cJSON_AddStringToObject(obj_dir, read_dir->d_name, suffix);
-        }
-        else if (S_ISREG(st.st_mode))
-        {
-            cJSON_AddStringToObject(obj_reg, read_dir->d_name, suffix);
-        }
-    }
-    char *p = cJSON_Print(obj);
-    printf("obj= %s\n", p);
-    cJSON_Delete(obj);
-    closedir(dir);
-
-    char body[1024] = {0};
+    char body[20480] = {0};
     int count = 0;
-    count += snprintf(body + count, sizeof(body) - count, "HTTP/1.0 200 OK\r\n");
+    count += snprintf(body + count, sizeof(body) - count, "HTTP/1.1 200 OK\r\n");
     count += snprintf(body + count, sizeof(body) - count, "Server: XJH Web Server\r\n");
     count += snprintf(body + count, sizeof(body) - count, "Connection:close\r\n");
-    count += snprintf(body + count, sizeof(body) - count, "Content-length: %ld\r\n", strlen(p));
-    count += snprintf(body + count, sizeof(body) - count, "Content-type: text/html;charset=utf-8\r\n\r\n%s", p);
+    count += snprintf(body + count, sizeof(body) - count, "Content-length: %d\r\n", msg_length);
+    count += snprintf(body + count, sizeof(body) - count, "Content-type: application/json;charset=utf-8\r\n\r\n%s", send_msg);
     Rio_writen(fd, body, strlen(body));
+}
+/****************************************************
+ * @brief  
+ * @note   
+ * @param  fd: 
+ * @param  *url: 
+ * @retval None
+ ***************************************************/
+void send_all_file_information(int fd)
+{
+    cJSON *root = get_allfile_info();
+    char  *send_msg = cJSON_Print(root);
+    send_response_msg(fd, send_msg, strlen(send_msg));
+    cJSON_Delete(root);
+    return;
+}
+
+void get_detailed_info(int fd)
+{
+    cJSON *root = get_all_file_info();
+    char  *send_msg = cJSON_Print(root);
+    send_response_msg(fd, send_msg, strlen(send_msg));
+    cJSON_Delete(root);
     return;
 }
 /****************************************************
@@ -239,11 +198,13 @@ void get_allfile_info(int fd, cJSON *root)
  ***************************************************/
 enum{
     GET_FILE_INFO,
+    GET_ALL_FILE_INFO,
     REQUEST_MAX,
 };
 
 cgi_public public_request[REQUEST_MAX] = {
-    {"/cgi-xjh/get_file_info", get_allfile_info},
+    {"/cgi-xjh/get_file_info", send_all_file_information},
+    {"/cgi-xjh/get_detailed_info", get_detailed_info},
 };
 /****************************************************
  * @brief  
@@ -278,11 +239,11 @@ void deal_with_get_request(int fd, char *url)
     else
     {
         int i = 0;
-        for(i = 0;i<REQUEST_MAX;i++)
+        for (i = 0;i < REQUEST_MAX; i++)
         {
             if(!strcmp(url, public_request[i].url))
             {
-                public_request[i].callback_function(fd, root);
+                public_request[i].callback_function(fd);
             }
         }
         return;

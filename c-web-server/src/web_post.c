@@ -2,6 +2,7 @@
 #include "JSON_checker.h"
 #include "public.h"
 #include "cJSON.h"
+#include "file.h"
 
 #include <dirent.h>
 #include <sys/types.h>
@@ -69,32 +70,6 @@ const char *Post_Value(char *message, int Socket)
     return suffix;
 }
 /****************************************************
- * @brief  由文件名得出文件的类型
- * @note
- * @param  fd:
- * @param  *index:
- * @retval None
- ***************************************************/
-void get_filetype(char *filename, char *filetype)
-{
-    if (strstr(filename, ".html") || strstr(filename, ".php"))
-        strcpy(filetype, "text/html");
-    else if (strstr(filename, ".css"))
-        strcpy(filetype, "text/css");
-    else if (strstr(filename, ".js"))
-        strcpy(filetype, "text/javascript");
-    else if (strstr(filename, ".png"))
-        strcpy(filetype, "image/png");
-    else if (strstr(filename, ".jpg"))
-        strcpy(filetype, "image/jpeg");
-    else if (strstr(filename, ".svg"))
-        strcpy(filetype, "image/svg+xml");
-    else if (strstr(filename, ".gif"))
-        strcpy(filetype, "image/gif");
-    else
-        strcpy(filetype, "text/plain");
-}
-/****************************************************
  * @brief  To show picture for client
  * @note
  * @param  fd:
@@ -104,7 +79,7 @@ void get_filetype(char *filename, char *filetype)
 void show_picture(int fd, char *index)
 {
     int count = 0;
-    char body[MAXBUF], file_type[64], send_filename[64];
+    char body[MAXBUF], send_filename[64];
     /* get file name */
     snprintf(send_filename, 64, "video/%s.jpg", index);
     printf("show pic %s.jpg\n", index);
@@ -116,23 +91,22 @@ void show_picture(int fd, char *index)
         return;
     }
     /* get file type */
-    get_filetype(send_filename, file_type);
+    char *file_type = get_filetype(send_filename);
     /* get file size */
-    int pic_size = lseek(pic_fd, 0, SEEK_END);
-    lseek(pic_fd, 0, SEEK_SET);
+    int file_size = get_filesize(send_filename);
     /* Encapsulated header */
     count += snprintf(body + count, sizeof(body), "HTTP/1.1 200 OK\r\n");
     count += snprintf(body + count, sizeof(body), "Server: XJH Web Server\r\n");
     count += snprintf(body + count, sizeof(body), "Connection:close\r\n");
-    count += snprintf(body + count, sizeof(body), "Content-length: %d\r\n", pic_size);
+    count += snprintf(body + count, sizeof(body), "Content-length: %d\r\n", file_size);
     count += snprintf(body + count, sizeof(body), "Content-type: %s\r\n\r\n", file_type);
     /*send header*/
     Rio_writen(fd, body, strlen(body));
     /* send file */
-    char *srcp = Mmap(0, pic_size, PROT_READ, MAP_PRIVATE, pic_fd, 0);
+    char *srcp = Mmap(0, file_size, PROT_READ, MAP_PRIVATE, pic_fd, 0);
     Close(pic_fd);
-    Rio_writen(fd, srcp, pic_size);
-    Munmap(srcp, pic_size);
+    Rio_writen(fd, srcp, file_size);
+    Munmap(srcp, file_size);
 }
 
 

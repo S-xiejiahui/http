@@ -88,10 +88,10 @@ void deal_with_client_request(int fd)
  * @param  *index:
  * @retval None
  ***************************************************/
-void Logo(char *port)
+void Logo(const char *ipaddr,const char *port)
 {
     printf("-----------------------------------------------------------\n");
-    printf("                       PORT = %s                     \n", port);
+    printf("         URL = http://%s:%s/app.html              \n", ipaddr, port);
     printf("-----------------------------------------------------------\n");
     printf("  __          ________ _______\n");
     printf("  \\ \\        / /  ____|  _____\\\n");
@@ -101,7 +101,7 @@ void Logo(char *port)
     printf("      \\/  \\/   |______|_______/  __)|__ \\/ |__|   \\\n");
     printf("\n");
     printf("            Welcome to use the Web Server!\n");
-    printf("                     Version 1.0\n\n");
+    printf("                     Version 1.2\n\n");
     printf("                         XJH\n");
     printf("-----------------------------------------------------------\n\n");
 
@@ -135,7 +135,9 @@ int main(int argc, char **argv)
         port = argv[1];
     }
     listenfd = Open_listenfd(port);
-    Logo(port);
+    char ipaddr[64] = {0};
+    get_local_ip_addr(ipaddr, sizeof(ipaddr));
+    Logo(ipaddr, port);
     printf("The web server has been started.....\n");
 
     /*信号处理函数,用来处理僵尸进程*/

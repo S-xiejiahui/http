@@ -6,10 +6,11 @@
                 "${default}",
                 "c-web-server/inc"
             ],
-            "compilerPath": "E:\\mingw64\\bin\\gcc.exe",
-            "cStandard": "gnu17",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "windows-gcc-x64"
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",  //编译器路径
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
         }
     ],
     "version": 4

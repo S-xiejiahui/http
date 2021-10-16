@@ -3,6 +3,42 @@
 static int listenfd = -1;
 static int connfd   = -1;
 
+void my_system(const char *cmd, char *result_msg, int msg_length)
+{
+    char result[10240] = {0}, buf[1024] = {0}, *p = NULL;
+    FILE *fp = NULL;
+
+    if( (fp = popen(cmd, "r")) == NULL )
+    {
+        printf("popen error!\n");
+        return;
+    }
+
+    while (fgets(buf, sizeof(buf), fp))
+    {
+        strcat(result, buf);
+    }
+    pclose(fp);
+    if(p = strchr(result, '\n'))
+    {
+        *p = '\0';
+    }
+    snprintf(result_msg, msg_length, "%s", result);
+    return;
+}
+
+void get_local_ip_addr(char *local_ipaddr, int length)
+{
+    if(NULL == local_ipaddr)
+    {
+        fprintf(stderr, "[%s][%d]input is NULL\n", __FILE__, __LINE__);
+        return;
+    }
+    char *cmd = "ifconfig | grep inet | grep -v inet6 | grep -v 127 | sed 's/^[ \t]*//g' | cut -d ' ' -f2";
+    my_system(cmd, local_ipaddr, length);
+    return;
+}
+
 int open_listenfd(char *port)
 {
     int optval = 1;

@@ -67,6 +67,13 @@ function get_file_from_server()
     
 //        })
 //    })
+
+function gain_file_typy(filename)
+{
+    var chr   = '.';
+    var point = filename.indexOf(chr);
+    var type  = filename.substr(point, filename.length);
+}
 /***********************************************************************************
                             加载文件
 ************************************************************************************/
@@ -85,7 +92,7 @@ function load_all_file(data)
             var end = key.lastIndexOf("=");
             var type = key.slice(first + 1, centre);
             var size = key.slice(end + 1);
-            console.log('filename == ' + name + ' , ' + 'type == ' + type + ', ' + 'size == ' + size);
+            //console.log('filename == ' + name + ' , ' + 'type == ' + type + ', ' + 'size == ' + size);
 
             var a = document.createElement("a");
             a.href = "#";
