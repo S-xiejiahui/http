@@ -64,7 +64,7 @@ function display_node_file_content(root, node_name)
 {
     var idx = 1;
     var item = get_item_from_obj(root, node_name);// 获取 点击文件的 子文件
-    console.log(item);
+    // console.log(item);
     for( var key in item)
     {
         if(key == 'type')// 跳过文件夹自身的属性值
@@ -74,7 +74,8 @@ function display_node_file_content(root, node_name)
         var type = get_item_attribute_value(item, key, 'type');// 获取子文件夹的 type 值
         if(type == "REG")
         {
-            add_item_into_div(key, "./icon/img/lianjiewenjian.png", idx++);
+            var url = according_file_type_match_url(key);
+            add_item_into_div(key, url, idx++);
         }
         else if(type == "DIR")
         {
@@ -93,11 +94,41 @@ function get_obj_of_file(root)
         var type = get_item_attribute_value(root, name, 'type');
         if(type == "REG")
         {
-            add_item_into_div(name, "./icon/img/lianjiewenjian.png", idx++);
+            var url = according_file_type_match_url(name);
+            add_item_into_div(name, url, idx++);
         }
         else if(type == "DIR")
         {
             add_item_into_div(name, "./icon/icon/wenjianjia.png", idx++);
         }
     }
+}
+
+function according_file_type_match_url(filename)
+{
+    var url = {
+        '.txt': 'icon/img/txt.png',
+        '.html': 'icon/img/html.png',
+        '.css': 'icon/img/css.png',
+        '.json': 'icon/img/json.png',
+        '.ico': 'icon/img/icon.png',
+        '.jpg': 'icon/icon/jpg-1.png',
+        '.png': 'icon/icon/JPG.png',
+        '.svg': 'icon/img/svg.png',
+        '.js': 'icon/img/JavaScript.png',
+        '.c': 'icon/img/chengxu.png',
+        '.h': 'icon/img/chengxu.png',
+        '.o':  'icon/img/o.png',
+    };
+    for(var i in url)
+    {
+        var str = filename.match(i);
+        // if(str != 'null')
+            
+        if(str == i)
+        {console.log('str = '+ str + ',  i =' + i + '    url = ' + url[i]);
+            return url[i];
+        }
+    }
+    return 'icon/img/weizhiwenjian.png'
 }
