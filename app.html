@@ -45,123 +45,19 @@
         <!-- 下方切换上下页 -->
         <!-- <button class="prev">上一页</button>
         <button class="next">下一页</button> -->
-        <button class="btn" id="obj">123</button>
-        <button class="btn" id="obj2">456</button>
-        <input type="text" id="form" class="002" value="000">
+        <div class="back" id="back_home"><img src="icon/svg/back.svg" alt=""></div>
+        <!-- <button class="btn" id="obj2">456</button> -->
+        <!-- <input type="text" id="form" class="002" value="000"> -->
     </div>
         
     <script src="js/jquery.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/get_file.js"></script>
+    <script src="js/json.js"></script>
+    <script src="js/event.js"></script>
+
     <script type="text/javascript">
-        var obj_allfile = {};
-		var obj = document.getElementById("obj");
-        //obj元素上绑定click事件
-        obj.addEventListener('click', function (event) 
-        {
-            $.ajax({
-                    url: "cgi-xjh/get_detailed_info",
-                    dataType: 'json',
-                    type: "GET",
-                    success: function (data)
-                    {
-                        console.log(data);
-                        obj_allfile = data;
-                        // load_all_file(data);
-                    },
-                    error: function ()
-                    {
-                        console.log("error");
-                    }
-                });
-            // var str = document.getElementById("form").value;
-            // var c = str.indexOf('.');
-            // var s = str.substr(c,);
-            // console.log(str+":"+s);
-        }, false);
 
-        function clean_app_div()
-        {
-            var app01 = document.querySelector(".app01");// 获取 父标签
-            var pObjs = app01.childNodes;// 获取 父标签下的所有子节点
-            for (var i = pObjs.length - 1; i >= 0; i--)
-            {
-                app01.removeChild(pObjs[i]); // 一定要倒序，正序是删不干净的，可自行尝试
-            }
-        }
-
-        function judge_obj_or_string(variable)
-        {
-            if(Object.prototype.toString.call(variable) === '[object Array]')
-            {
-                return 'arr';
-            }
-            if(Object.prototype.toString.call(variable) === '[object Object]')
-            {
-                return 'obj';
-            }
-            if(Object.prototype.toString.call(variable) === '[object String]')
-            {
-                return 'string'
-            }
-        }
-
-        function get_obj_of_file(root)
-        {
-            for (var key in root)
-            {
-                console.log(key);
-                console.log(root[key]);
-                for (var data in root[key])
-                {
-                    if(judge_obj_or_string(data) == "string")
-                    {
-                        console.log(data + ':  ' + root[key][data]);
-                    }
-                }
-                //break;
-            }
-
-            // var file_count = 0;
-            // clean_app_div();
-            // $.each(root, function (obj_name, obj_key)
-            // {
-            //     console.log('objname = ' + obj_name +'   '+ 'key = ' + obj_key);
-
-            //     var a = document.createElement("a");
-            //     a.href = "#";
-            //     a.className = "mya";
-
-            //     var img = document.createElement("img");
-            //     img.className = "myimg";
-
-            //     var p = document.createElement("p");
-            //     p.className = "filename";
-            //     p.innerHTML = obj_name;
-
-            //     img.src = "icon/icon/Makefile.png";
-
-            //     var app01 = document.getElementsByClassName("app01");
-            //     app01[0].appendChild(a); //通过类名添加新标签
-            //     a.appendChild(img);
-            //     a.appendChild(p);
-
-            //     if (++file_count % 5 == 0)
-            //     {
-            //         // 清除浮动
-            //         var div = document.createElement("div");
-            //         div.style = "clear: both;";
-            //         app01[0].appendChild(div);
-            //     }
-            // })
-        }
-
-        var obj2 = document.getElementById("obj2");
-        //obj元素上绑定click事件
-        obj2.addEventListener('click', function (event) 
-        {
-            //console.log(obj_allfile);
-            get_obj_of_file(obj_allfile)
-        }, false);
 	</script>
 
 </body>

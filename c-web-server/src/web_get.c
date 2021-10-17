@@ -74,7 +74,7 @@ void serve_static(int fd, char *filename, int filesize)
 
     /* send request file */
     int srcfd = Open(filename, O_RDONLY, 0);
-    printf("send file(%s) success\n\n", filename);
+    // printf("send file(%s) success\n\n", filename);
 
     char *srcp = Mmap(0, filesize, PROT_READ, MAP_PRIVATE, srcfd, 0);
     Close(srcfd);
@@ -177,7 +177,9 @@ void send_response_msg(int fd, char *send_msg, int msg_length)
 void send_all_file_information(int fd)
 {
     cJSON *root = get_allfile_info();
+    cJSON_AddStringToObject(root, "type", "DIR");
     char  *send_msg = cJSON_Print(root);
+    // printf("root = %s\n", send_msg);
     send_response_msg(fd, send_msg, strlen(send_msg));
     cJSON_Delete(root);
     return;
@@ -186,7 +188,9 @@ void send_all_file_information(int fd)
 void get_detailed_info(int fd)
 {
     cJSON *root = get_all_file_info();
+    cJSON_AddStringToObject(root, "type", "DIR");
     char  *send_msg = cJSON_Print(root);
+    // printf("root = %s\n", send_msg);
     send_response_msg(fd, send_msg, strlen(send_msg));
     cJSON_Delete(root);
     return;
@@ -220,7 +224,7 @@ void deal_with_get_request(int fd, char *url)
     char filename[128] = {0}, cgi_argv[128] = {0};
 
     int is_static = parse_uri(url, filename, cgi_argv);
-    printf("url = %s, filename = %s, ragv = %s\n", url, filename, cgi_argv);
+    // printf("url = %s, filename = %s, ragv = %s\n", url, filename, cgi_argv);
     //登陆成功，将用户访问页面发送
     if (is_static)
     {

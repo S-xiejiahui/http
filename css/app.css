@@ -137,6 +137,22 @@
         border-radius: 5px;
     }
 
+    .back img {
+        width: 40px;
+        position: absolute;
+        top: 60px;
+        left: 4%;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .back img:hover{
+        background-color:rgba(156, 153, 153, .4);
+        src: url('../icon/svg/back_on.svg');
+    }
 /***********************************************************************************
 
 ************************************************************************************/
+
+

@@ -2,15 +2,14 @@
                             全局变量
 ************************************************************************************/
 var x = 1, idx = 1, max = 24, number = 66;
-var _IP_ = "192.168.13.132";
+var _IP_ = "192.168.141.137";
 var _URL_ = "http://" + _IP_ + ":8080/app.html/allfile"
 /***********************************************************************************
                                 页面打开即允许192.168.1.1
 ************************************************************************************/
 window.onload = function ()
 {
-    get_file_from_server();
-
+    GET_request_for_allfile();
     setInterval(function ()
     {
         var d = new Date();
@@ -38,7 +37,7 @@ function get_file_from_server()
         success: function (data)
         {
             console.log(data);
-            load_all_file(data);
+            
         },
         error: function ()
         {

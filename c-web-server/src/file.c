@@ -113,6 +113,7 @@ void file_list(char *pathname, cJSON *root)
             //Add folder to root
             cJSON *tmp_dir = cJSON_CreateObject();
             cJSON_AddItemToObject(root, dir->d_name, tmp_dir);
+            cJSON_AddStringToObject(tmp_dir, "type", "DIR");
 
             //Get the data recursively
             file_list(file_path, tmp_dir);
@@ -199,7 +200,6 @@ cJSON *get_allfile_info()
         }
     }
     char *p = cJSON_Print(obj);
-    printf("obj= %s\n", p);
     closedir(dir);
     return obj;
 }
