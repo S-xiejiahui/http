@@ -20,6 +20,23 @@ function GET_request_for_allfile()
     });
 }
 
+function Get_request_file_content(node_name)
+{
+    $.ajax({
+        url: "cgi-xjh/get_file_content?filename="+node_name,
+        dataType: 'json',
+        type: "GET",
+        success: function (data)
+        {
+            console.log(data);
+        },
+        error: function ()
+        {
+            console.log("error");
+        }
+    });
+}
+
 function clean_app_div()
 {
     var app01 = document.querySelector(".app01");// 获取 父标签
@@ -106,27 +123,39 @@ function get_obj_of_file(root)
 
 function according_file_type_match_url(filename)
 {
-    var url = {
-        '.txt': 'icon/img/txt.png',
-        '.html': 'icon/img/html.png',
-        '.css': 'icon/img/css.png',
-        '.json': 'icon/img/json.png',
-        '.ico': 'icon/img/icon.png',
-        '.jpg': 'icon/icon/jpg-1.png',
-        '.png': 'icon/icon/JPG.png',
-        '.svg': 'icon/img/svg.png',
-        '.js': 'icon/img/JavaScript.png',
-        '.c': 'icon/img/chengxu.png',
-        '.h': 'icon/img/chengxu.png',
-        '.o':  'icon/img/o.png',
+    var file = {
+        'http'      : 'icon/img/conf.png',
+        'README.md' : 'icon/img/shujuku.png', 
+        'Makefile'  : 'icon/icon/DOCX.png', 
+        '.gitignore': 'icon/icon/yuanwenjian.png',
     };
+    for(var i in file)
+    {
+        if(i == filename)
+        {
+            return file[i];
+        }
+    }
+    var url = {
+        '.txt' : 'icon/img/txt.png',
+        '.html': 'icon/img/html.png',
+        '.css' : 'icon/img/css.png',
+        '.json': 'icon/img/json.png',
+        '.ico' : 'icon/img/icon.png',
+        '.jpg' : 'icon/icon/jpg-1.png',
+        '.png' : 'icon/img/png.png',
+        '.svg' : 'icon/img/svg.png',
+        '.js'  : 'icon/img/javascript.png',
+        '.c'   : 'icon/img/chengxu.png',
+        '.h'   : 'icon/img/chengxu.png',
+        '.o'   :  'icon/img/o.png',
+    };
+    var index = filename.lastIndexOf(".");
+    var file_type = filename.substr(index);
     for(var i in url)
     {
-        var str = filename.match(i);
-        // if(str != 'null')
-            
-        if(str == i)
-        {console.log('str = '+ str + ',  i =' + i + '    url = ' + url[i]);
+        if(file_type == i)
+        {
             return url[i];
         }
     }

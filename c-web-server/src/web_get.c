@@ -116,7 +116,7 @@ void serve_dynamic(int fd, char *filename, char *cgiargs)
  * @param  *url:
  * @retval 
  ***************************************************/
-void get_file_content(int fd, char *url)
+void get_file_dynamic(int fd, char *url)
 {
     struct stat sbuf;
     char filename[128] = {0}, cgi_argv[128] = {0};
@@ -171,21 +171,15 @@ void send_response_msg(int fd, char *send_msg, int msg_length)
  * @brief  
  * @note   
  * @param  fd: 
- * @param  *url: 
+ * @param  : 
  * @retval None
  ***************************************************/
-void send_all_file_information(int fd)
+void get_file_content(int fd, char *argv)
 {
-    cJSON *root = get_allfile_info();
-    cJSON_AddStringToObject(root, "type", "DIR");
-    char  *send_msg = cJSON_Print(root);
-    // printf("root = %s\n", send_msg);
-    send_response_msg(fd, send_msg, strlen(send_msg));
-    cJSON_Delete(root);
-    return;
+
 }
 
-void get_detailed_info(int fd)
+void get_detailed_info(int fd, char *argv)
 {
     cJSON *root = get_all_file_info();
     cJSON_AddStringToObject(root, "type", "DIR");
@@ -207,7 +201,7 @@ enum{
 };
 
 cgi_public public_request[REQUEST_MAX] = {
-    {"/cgi-xjh/get_file_info", send_all_file_information},
+    {"/cgi-xjh/get_file_content", get_file_content},
     {"/cgi-xjh/get_detailed_info", get_detailed_info},
 };
 /****************************************************
@@ -247,7 +241,7 @@ void deal_with_get_request(int fd, char *url)
         {
             if(!strcmp(url, public_request[i].url))
             {
-                public_request[i].callback_function(fd);
+                public_request[i].callback_function(fd, cgi_argv);
             }
         }
         return;

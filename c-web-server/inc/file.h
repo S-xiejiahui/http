@@ -27,6 +27,4 @@ int get_filesize(char *filename);
  ***************************************************/
 cJSON *get_all_file_info();
 
-cJSON *get_allfile_info();
-
 #endif

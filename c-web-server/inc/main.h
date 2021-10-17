@@ -10,7 +10,7 @@
 typedef struct Cgi_public
 {
     char *url;
-    void (*callback_function)(int);
+    void (*callback_function)(int, char*);
 }cgi_public;
 
 
