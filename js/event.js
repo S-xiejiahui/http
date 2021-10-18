@@ -34,6 +34,7 @@ function add_event_for_all_file(root)
                 father_node.push(root);
                 father_name.push(node_name);
                 console.log('push name: ' + node_name);
+
                 clean_app_div();// 清理所有文件标签
                 display_node_file_content(root, node_name);
                 remove_event_for_all_file(link);
@@ -41,13 +42,27 @@ function add_event_for_all_file(root)
             }
             else if(get_self_attribute_value(item, 'type') == "REG")
             {
+                var index = node_name.lastIndexOf(".");
+                var file_type = node_name.substr(index);
                 var path = './';
                 for (var x = 0; x < father_name.length; x++)
                 {
                     path += father_name[x] + '/';
                 }
                 path += node_name;
-                Get_request_file_content(path);
+                if(file_type == '.txt')
+                {
+                    Get_request_file_content(path);
+                }
+                else if(file_type == '.png' || file_type == '.jpg')
+                {
+                    console.log(path);
+                    var img = document.createElement("img");
+                    img.className = "show_img";
+                    img.src = path;//Get_request_file_content(path);
+                    var body = document.getElementsByClassName("root");
+                    body[0].appendChild(img); //通过类名添加新标签
+                }
             }  
         }
     }

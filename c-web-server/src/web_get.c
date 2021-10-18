@@ -221,13 +221,9 @@ void get_detailed_info(int fd, char *argv)
  * @note   根据 url 运行相应处理函数
  * @note   
  ***************************************************/
-enum{
-    GET_FILE_INFO,
-    GET_ALL_FILE_INFO,
-    REQUEST_MAX,
-};
+ #define GET_REQUEST_MAX  (sizeof(public_get_request)/sizeof(public_get_request[0]))
 
-cgi_public public_request[REQUEST_MAX] = {
+cgi_public public_get_request[] = {
     {"/cgi-xjh/get_file_content", get_file_content},
     {"/cgi-xjh/get_detailed_info", get_detailed_info},
 };
@@ -264,11 +260,11 @@ void deal_with_get_request(int fd, char *url)
     else
     {
         int i = 0;
-        for (i = 0;i < REQUEST_MAX; i++)
+        for (i = 0;i < GET_REQUEST_MAX; i++)
         {
-            if(!strcmp(url, public_request[i].url))
+            if(!strcmp(url, public_get_request[i].url))
             {
-                public_request[i].callback_function(fd, cgi_argv);
+                public_get_request[i].callback_function(fd, cgi_argv);
             }
         }
         return;

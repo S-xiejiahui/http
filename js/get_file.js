@@ -28,7 +28,8 @@ function Get_request_file_content(node_name)
         type: "GET",
         success: function (data)
         {
-            console.log(data);
+            // console.log(data);
+            return data;
         },
         error: function ()
         {

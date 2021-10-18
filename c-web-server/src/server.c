@@ -54,9 +54,12 @@ int open_listenfd(char *port)
         return -1;
     }
     bzero((char *)&serveraddr, sizeof(serveraddr));
-
+    
     serveraddr.sin_family = AF_INET;
-    serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    //serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    char local_ip[64] = {0};
+    get_local_ip_addr(local_ip, sizeof(local_ip));
+    serveraddr.sin_addr.s_addr = inet_addr(local_ip);
     serveraddr.sin_port = htons((unsigned short)atoi(port));
 
     if (bind(listenfd, (SA *)&serveraddr, sizeof(serveraddr)) < 0)

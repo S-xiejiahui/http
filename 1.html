@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(245, 245, 238);
+        }
+        .word {
+            box-sizing: border-box;
+            width: 400px;
+            height: 400px;
+            background-color :antiquewhite;
+            border: 1px solid black;
+            word-wrap: break-word;
+        }
+        .word_head {
+            width: 400px;
+            height: 20px;
+            display:inline-block;
+            margin-bottom: 10px;
+        }
+        .cc {
+            float: right;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 20px;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            margin: 0px;
+            padding: 0px;
+            /* box-sizing: content-box; */
+        }
+
+        .inner{
+            width: 265px;
+            height: 400px;
+            position: absolute;
+            top: 33px;
+            left: 13px;
+            overflow:hidden;
+        }
+        .content{
+            /* margin-top: -25px; */
+            /* overflow: hidden; */
+            overflow-x: hidden;
+            overflow-y: auto;
+            color: #000;
+            font-size: .7rem;
+            padding-top: 0px;
+            /* font-family: "\5FAE\8F6F\96C5\9ED1",Helvetica,"黑体",Arial,Tahoma; */
+            height: 90%;
+        }
+        .content ul {
+            padding-top: 0px;
+        }
+        /*滚动条样式*/
+        .content::-webkit-scrollbar {
+            width: 0px;    
+        }
+        /* .content::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+        }
+        .content::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background: rgba(0,0,0,0.1); 
+        }*/
+    </style>
+</head>
+<body>
+    <div class="word">
+        <div class="word_head"><span class="cc">X</span></div>
+        <div class="content">
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

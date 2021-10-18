@@ -21,7 +21,7 @@ void check_account_password(int fd, char *url)
  * @param  Socket:
  * @retval
  ***************************************************/
-const char *Post_Value(char *message, int Socket)
+int check_user_password(int Socket_fd, char *message)
 {
     char *suffix = NULL;
     char *send_result = NULL;
@@ -67,7 +67,7 @@ const char *Post_Value(char *message, int Socket)
     count += snprintf(body + count, sizeof(body) - count, "Connection:close\r\n");
     count += snprintf(body + count, sizeof(body) - count, "Content-length: %ld\r\n", strlen(body));
     count += snprintf(body + count, sizeof(body) - count, "Content-type: text/html;\r\n\r\n%s", send_result);
-    return suffix;
+    return 0;
 }
 /****************************************************
  * @brief  To show picture for client
@@ -108,9 +108,52 @@ void show_picture(int fd, char *index)
     Rio_writen(fd, srcp, file_size);
     Munmap(srcp, file_size);
 }
+/****************************************************
+ * @brief
+ * @note
+ * @return
+ ***************************************************/
+void log_in_check(int fd, char *argv)
+{
+    check_user_password(fd, "pwd=123&pwd=456");
+}
 
-
-void deal_with_post_request(int fd, char *url)
+void play_surveillance_screen(int fd, char *argv)
 {
 
+}
+/****************************************************
+ * @brief  public_request 结构体数组(url + 处理函数)
+ * @note   根据 url 运行相应处理函数
+ * @note   
+ ***************************************************/
+ #define POST_REQUEST_MAX  (sizeof(public_post_request)/sizeof(public_post_request[0]))
+
+cgi_public public_post_request[] = {
+    {"/cgi-xjh/log_in_check", log_in_check},
+    {"/cgi-xjh/play_surveillance_screen", play_surveillance_screen},
+};
+/****************************************************
+ * @brief  
+ * @note   
+ * @param  fd: 
+ * @param  *url: 
+ * @retval None
+ ***************************************************/
+void deal_with_post_request(int fd, char *url)
+{
+    char argvs[128] = "", *p = NULL;
+    if(p = strchr(url, '?'))
+    {
+        sscanf(p, "?%[^&]", argvs);
+    }
+  
+    int i = 0;
+    for (i = 0; i < POST_REQUEST_MAX; i++)
+    {
+        if(!strcmp(url, public_post_request[i].url))
+        {
+            public_post_request[i].callback_function(fd, argvs);
+        }
+    }
 }
