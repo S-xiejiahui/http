@@ -17,38 +17,45 @@
  * @param  *index:
  * @retval 如果是动态内容返回0；静态内容返回 1
  ***************************************************/
-int parse_uri(char *uri, char *filename, char *cgiargs)
+int parse_url(char *url, char *filename, char *cgiargs)
 {
-    if (!strstr(uri, "cgi-xjh"))
+    if (!strstr(url, "cgi-xjh"))
     {
-        char *p = strchr(uri, '&');
+        char *p = strchr(url, '?');
         if (NULL == p)
         {
             strcpy(cgiargs, "");
             strcpy(filename, ".");
-            strcat(filename, uri);
+            strcat(filename, url);
         }
         else
         {
-            strcpy(cgiargs, p);
+            sscanf(p + 1, "%s", cgiargs);
             strcpy(filename, ".");
-            sscanf(uri, "%[^&]", filename + 1);
+            sscanf(url, "%[^?]", filename+1);
         }
+        //printf("[1]url = [%s]\t filename = [%s]\t argv = [%s]\n", url, filename, cgiargs);
         return 1; // static
     }
     else
     {
-        char *ptr = strchr(uri, '?');
-        if (ptr)
+        char tmp_url[128] = {0};
+        snprintf(tmp_url, sizeof(tmp_url), "%s", url);
+        char *p = strchr(url, '?');
+        if(p)
         {
-            strcpy(cgiargs, ptr + 1);
-            *ptr = '\0';
+            char *u = strrchr(p, '/');
+            sscanf(p, "?filename=%[^&]", filename);
+            sscanf(p, "?%[^&]", cgiargs);
+            memset(url, 0, strlen(url));
+            sscanf(tmp_url, "%[^?]", url);
         }
         else
         {
             strcpy(cgiargs, "");
+            strcpy(filename, "");
         }
-        strcpy(filename, "");
+        //printf("[2]url = [%s]\t filename = [%s]\t argv = [%s]\n", url, filename, cgiargs);
         return 0;
     }
 }
@@ -150,6 +157,14 @@ void send_response_file(int fd, char *filename)
     count += snprintf(body + count, sizeof(body), "Content-length: %d\r\n", filesize);
     count += snprintf(body + count, sizeof(body), "Content-type: %s;charset=utf-8\r\n\r\n", filetype);
     Rio_writen(fd, body, strlen(body));
+
+    int srcfd = Open(filename, O_RDONLY, 0);
+
+    char *srcp = Mmap(0, filesize, PROT_READ, MAP_PRIVATE, srcfd, 0);
+    Close(srcfd);
+
+    Rio_writen(fd, srcp, filesize);
+    Munmap(srcp, filesize);
 }
 /****************************************************
  * @brief  only send msg of json type
@@ -176,7 +191,19 @@ void send_response_msg(int fd, char *send_msg, int msg_length)
  ***************************************************/
 void get_file_content(int fd, char *argv)
 {
-
+    if(NULL == argv)
+    {
+        return;
+    }
+    printf("argv = %s\n", argv);
+    char key[32] = {0}, value[32] = {0};
+    sscanf(argv, "%[^=]=%[^&]", key, value);
+    printf("key = %s, value = %s\n", key, value);
+    if(!strcmp("filename", key))
+    {
+        send_response_file(fd, value);
+    }
+    return;
 }
 
 void get_detailed_info(int fd, char *argv)
@@ -213,26 +240,26 @@ cgi_public public_request[REQUEST_MAX] = {
  ***************************************************/
 void deal_with_get_request(int fd, char *url)
 {
-    struct stat sbuf;
+    //printf("url = %s\n", url);
     cJSON *root = cJSON_CreateObject();
     char filename[128] = {0}, cgi_argv[128] = {0};
 
-    int is_static = parse_uri(url, filename, cgi_argv);
-    // printf("url = %s, filename = %s, ragv = %s\n", url, filename, cgi_argv);
+    int is_static = parse_url(url, filename, cgi_argv);
+    //printf("url = %s, filename = %s, ragv = %s\n", url, filename, cgi_argv);
     //登陆成功，将用户访问页面发送
     if (is_static)
     {
-        if (stat(filename, &sbuf) < 0)
+        if (check_whether_the_file_exists(filename) == 0)
         {
             clienterror(fd, filename, "404", "Not found", "XJH couldn't find this file");
             return;
         }
-        if (!(S_ISREG(sbuf.st_mode)) || !(S_IRUSR & sbuf.st_mode))
+        else if (check_whether_the_file_exists(filename) == -1)
         {
             clienterror(fd, filename, "403", "Forbidden", "XJH couldn't read the file");
             return;
         }
-        serve_static(fd, filename, sbuf.st_size);
+        serve_static(fd, filename, get_filesize(filename));
     }
     else
     {

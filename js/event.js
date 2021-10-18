@@ -1,4 +1,5 @@
 var father_node = [];
+var father_name = [];
 
 var obj = document.getElementById("back_home");
 obj.addEventListener('click', function (event) 
@@ -7,6 +8,8 @@ obj.addEventListener('click', function (event)
     {
         // console.log("back");
         var prev_node = father_node.pop();
+        var path = father_name.pop();
+        console.log('pop path: ' + path);
         clean_app_div();// 清理所有文件标签
         // console.log('prev = ' + JSON.stringify(prev_node));
         get_obj_of_file(prev_node);
@@ -29,6 +32,8 @@ function add_event_for_all_file(root)
             if(get_self_attribute_value(item, 'type') == "DIR")
             {
                 father_node.push(root);
+                father_name.push(node_name);
+                console.log('push name: ' + node_name);
                 clean_app_div();// 清理所有文件标签
                 display_node_file_content(root, node_name);
                 remove_event_for_all_file(link);
@@ -36,7 +41,13 @@ function add_event_for_all_file(root)
             }
             else if(get_self_attribute_value(item, 'type') == "REG")
             {
-                Get_request_file_content(node_name);
+                var path = './';
+                for (var x = 0; x < father_name.length; x++)
+                {
+                    path += father_name[x] + '/';
+                }
+                path += node_name;
+                Get_request_file_content(path);
             }  
         }
     }

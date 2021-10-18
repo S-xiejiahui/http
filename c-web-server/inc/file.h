@@ -27,4 +27,13 @@ int get_filesize(char *filename);
  ***************************************************/
 cJSON *get_all_file_info();
 
+/****************************************************
+ * @brief  
+ * @note
+ * @param  filename:
+ * @param  *index:
+ * @retval None
+ ***************************************************/
+int check_whether_the_file_exists(char *filename);
+
 #endif

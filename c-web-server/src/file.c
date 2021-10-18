@@ -134,3 +134,23 @@ cJSON *get_all_file_info()
     file_list(".", root);
     return root;
 }
+/****************************************************
+ * @brief  
+ * @note
+ * @param  filename:
+ * @param  :
+ * @retval None
+ ***************************************************/
+int check_whether_the_file_exists(char *filename)
+{   
+    struct stat sbuf;
+    if (stat(filename, &sbuf) < 0)
+    {
+        return 0;
+    }
+    if(!(S_ISREG(sbuf.st_mode)) || !(S_IRUSR & sbuf.st_mode))
+    {
+        return -1;
+    }
+    return 1;
+}

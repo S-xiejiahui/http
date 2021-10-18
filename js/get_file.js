@@ -24,7 +24,7 @@ function Get_request_file_content(node_name)
 {
     $.ajax({
         url: "cgi-xjh/get_file_content?filename="+node_name,
-        dataType: 'json',
+        dataType: 'text',
         type: "GET",
         success: function (data)
         {
