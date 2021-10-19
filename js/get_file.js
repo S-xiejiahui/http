@@ -1,4 +1,5 @@
 var obj_allfile = {};
+var txt_data = '';
 
 function GET_request_for_allfile()
 {
@@ -28,14 +29,24 @@ function Get_request_file_content(node_name)
         type: "GET",
         success: function (data)
         {
-            // console.log(data);
-            return data;
+            // txt_data = data;
+            show_word_on_page(data);
+            console.log(data);
         },
         error: function ()
         {
             console.log("error");
         }
     });
+}
+
+function show_word_on_page(data)
+{
+    var up1 = document.getElementById('up1');
+    up1.style = 'z-index: 2;';
+    var up2 = document.getElementById('up2');
+    up2.style = 'z-index: 2;';
+    up2.innerHTML = data;
 }
 
 function clean_app_div()

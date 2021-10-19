@@ -94,16 +94,16 @@ void file_list(char *pathname, cJSON *root)
             snprintf(file_size, sizeof(file_size), "%ld", st.st_size);
 
             //Get file last amend time
-            struct tm *local_time = NULL;
+            /*struct tm *local_time = NULL;
             local_time = localtime(&st.st_mtime);
             char str_time[64] = {0};
-            strftime(str_time, sizeof(str_time), "%Y-%m-%d,%H:%M:%S", local_time);
+            strftime(str_time, sizeof(str_time), "%Y-%m-%d,%H:%M:%S", local_time);*/
 
             //Add File attributes to obj
             cJSON *tmp_reg = cJSON_CreateObject();
             cJSON_AddStringToObject(tmp_reg, "size", file_size);
             cJSON_AddStringToObject(tmp_reg, "type", "REG");
-            cJSON_AddStringToObject(tmp_reg, "time", str_time);
+            // cJSON_AddStringToObject(tmp_reg, "time", str_time);
 
             //Add File attributes to root
             cJSON_AddItemToObject(root, dir->d_name, tmp_reg);

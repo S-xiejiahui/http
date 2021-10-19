@@ -146,25 +146,38 @@ void send_response_file(int fd, char *filename)
         fprintf(stderr, "[%s][%d]input is NULL\n", __FILE__, __LINE__);
         return;
     }
-    char body[20480] = {0};
-    char *filetype = get_filetype(filename);
-    int  filesize = get_filesize(filename);
+    char body[2048] = {0}, tmp[512+1] = {0}, content[20480] = {0};
+    /*char *filetype = get_filetype(filename);*/
+    int number = 0, count = 0;
+    int filesize = get_filesize(filename);
+    if(filesize > 25000)
+    {
+        clienterror(fd, filename, "403", "Forbidden", "The file is too large to read");
+        return;
+    }
     
-    int count = 0;
+    FILE *fp = fopen(filename, "r");
+    number += snprintf(content + number, sizeof(content) - number, "<ul>");
+    while(fgets(tmp, 512, fp))
+    {
+        number += snprintf(content + number, sizeof(content) - number, "<li>%s</li>", tmp);
+    }
+    number += snprintf(content + number, sizeof(content) - number, "</ul>");
+
     count += snprintf(body + count, sizeof(body), "HTTP/1.1 200 OK\r\n");
     count += snprintf(body + count, sizeof(body), "Server: XJH Web Server\r\n");
     count += snprintf(body + count, sizeof(body), "Connection:close\r\n");
-    count += snprintf(body + count, sizeof(body), "Content-length: %d\r\n", filesize);
-    count += snprintf(body + count, sizeof(body), "Content-type: %s;charset=utf-8\r\n\r\n", filetype);
+    count += snprintf(body + count, sizeof(body), "Content-length: %d\r\n", number);
+    count += snprintf(body + count, sizeof(body), "Content-type: text/plain;charset=utf-8\r\n\r\n");
     Rio_writen(fd, body, strlen(body));
+    Rio_writen(fd, content, strlen(content));
+    // int srcfd = Open(filename, O_RDONLY, 0);
 
-    int srcfd = Open(filename, O_RDONLY, 0);
+    // char *srcp = Mmap(0, filesize, PROT_READ, MAP_PRIVATE, srcfd, 0);
+    // Close(srcfd);
 
-    char *srcp = Mmap(0, filesize, PROT_READ, MAP_PRIVATE, srcfd, 0);
-    Close(srcfd);
-
-    Rio_writen(fd, srcp, filesize);
-    Munmap(srcp, filesize);
+    // Rio_writen(fd, srcp, filesize);
+    // Munmap(srcp, filesize);
 }
 /****************************************************
  * @brief  only send msg of json type
@@ -212,6 +225,7 @@ void get_detailed_info(int fd, char *argv)
     cJSON_AddStringToObject(root, "type", "DIR");
     char  *send_msg = cJSON_Print(root);
     // printf("root = %s\n", send_msg);
+    // printf("data size = %ld\n%s\n", strlen(send_msg), send_msg);
     send_response_msg(fd, send_msg, strlen(send_msg));
     cJSON_Delete(root);
     return;
