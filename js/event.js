@@ -17,6 +17,16 @@ obj.addEventListener('click', function (event)
     }
 }, false);
 
+document.getElementById('close').onclick = function(e)
+{
+    var up1 = document.getElementById('up1');
+    up1.style = 'z-index: 0;';
+    var up2 = document.getElementById('up2');
+    up2.style = 'z-index: 0;';
+    up2.innerHTML = '';
+}
+
+
 function add_event_for_all_file(root)
 {
     var link = $(".app01 a");
@@ -50,7 +60,7 @@ function add_event_for_all_file(root)
                     path += father_name[x] + '/';
                 }
                 path += node_name;
-                if(file_type == '.txt')
+                if(file_type == '.txt' || file_type == '.c' || file_type == '.h')
                 {
                     Get_request_file_content(path);
                 }
