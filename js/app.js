@@ -9,8 +9,7 @@ var _URL_ = "http://" + _IP_ + ":8080/app.html/allfile"
 ************************************************************************************/
 window.onload = function ()
 {
-    get_file_from_server();
-
+    GET_request_for_allfile();
     setInterval(function ()
     {
         var d = new Date();
@@ -32,19 +31,47 @@ window.onload = function ()
 function get_file_from_server()
 {
     $.ajax({
-        url: _URL_,
+        url: "cgi-xjh/get_file_info",
         dataType: 'json',
         type: "GET",
         success: function (data)
         {
             console.log(data);
-            load_all_file(data);
+            
         },
         error: function ()
         {
             console.log("error");
         }
     });
+}
+
+// $(document).ready(function () {
+ 
+//     var schoolList={
+//      "pageCount": "2",
+//      "pageIndex": "1",
+//      "sign": "1",
+//      "uniPayId": "9dc1308bab2b4b49987a0c12dd7339f5"
+//    }
+//     $.ajax({
+//            type:"POST",
+//            url:"/schoolroll/insert",
+//            contentType: "application/json", //必须这样写
+//            dataType:"json",
+//            data:JSON.stringify(schoolList),//schoolList是你要提交是json字符串
+//            success:function (data) {
+    
+//            }
+    
+//        })
+//    })
+
+function gain_file_typy(filename)
+{
+    var chr   = '.';
+    var point = filename.indexOf(chr);
+    var type  = filename.substr(point, filename.length);
 }
 /***********************************************************************************
                             加载文件
@@ -64,7 +91,7 @@ function load_all_file(data)
             var end = key.lastIndexOf("=");
             var type = key.slice(first + 1, centre);
             var size = key.slice(end + 1);
-            console.log('filename == ' + name + ' , ' + 'type == ' + type + ', ' + 'size == ' + size);
+            //console.log('filename == ' + name + ' , ' + 'type == ' + type + ', ' + 'size == ' + size);
 
             var a = document.createElement("a");
             a.href = "#";

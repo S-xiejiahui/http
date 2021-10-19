@@ -8,6 +8,7 @@
     <title>app设计</title>
     <link rel="shortcut icon" href="icon/ico/xjh.ico">
     <link rel="stylesheet" type="text/css" href="css/app.css" charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/display_word.css" charset="utf-8" />
     <style>
         .svg {
             width: 20px;
@@ -16,41 +17,56 @@
 </head>
 
 <body>
+
     <!-- 左边导航栏 -->
-    <ul class="menu">
-        <li> <a href="#" style="color: green;">USER MENU</a> </li>
+    <ul class="menu" id="main">
+        <li><a href="#" style="color: green;">USER MENU</a> </li>
         <li><a href="#" id="home"><img src="icon/svg/home.svg" class="svg" alt="">&nbsp; Home</a></li>
         <li><a href="#" id="file"><img src="icon/svg/file.svg" class="svg" alt="">&nbsp; File</a> </li>
         <li><a href="#" id="set"><img src="icon/svg/set.svg" class="svg" alt="">&nbsp; Set</a></li>
         <li><a href="#" id="about"><img src="icon/svg/about.svg" class="svg" alt="">&nbsp; About</a></li>
     </ul>
     <!-- 上方用户信息 -->
-    <div class="app">
+    <div class="app" id="main">
         <div class="userinfo">
-            <p>
-                <span><img src="icon/svg/people.svg" class="svg" alt="">&nbsp; username: xjh</span>
+            <p><span><img src="icon/svg/people.svg" class="svg" alt="">&nbsp; username: xjh</span>
                 <span style="float: right; margin-right: 20px;"><img src="icon/svg/time.svg" class="svg" alt="">
-                    <i id="time"></i></span>
+                    <i id="time"></i>
+                </span>
             </p>
             <hr>
         </div>
-
         <h3 style=" text-align: center;">文件夹</h3>
-        <div class="app01">
-            <!-- <a href="#" class="mya">
-                <img src="img/music.png" alt="" class="myimg">
-                <p class="filename">音乐1</p>
-            </a> -->
-        </div>
+        <div class="app01"></div>
         <!-- 下方切换上下页 -->
         <!-- <button class="prev">上一页</button>
         <button class="next">下一页</button> -->
+        <div class="back" id="back_home"><img src="icon/svg/back.svg" alt=""></div>
+        <!-- <button class="btn" id="obj2">456</button> -->
+        <!-- <input type="text" id="form" class="002" value="000"> -->
     </div>
-
+    <div>
+        <div id="up1" style="z-index: 0;"> <button id="close">x</button></div>
+        <div id="up2" style="z-index: 0;"><!-- 用于显示文档内容 -->
+            <ul class="word-list">
+                <li>First, light the candle.</li>
+                <li>Next, open the box.</li>
+                <li>Finally, place the three magic items in the box, in this exact order, to complete the spell:
+                    <ol>
+                        <li>The book of spells</li>
+                        <li>The shiny rod</li>
+                        <li>The goblin statue</li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+    </div>
     <script src="js/jquery.js"></script>
     <script src="js/app.js"></script>
-    <script>
-
+    <script src="js/get_file.js"></script>
+    <script src="js/json.js"></script>
+    <script src="js/event.js"></script>
+    <script type="text/javascript">
     </script>
 </body>
 
