@@ -28,15 +28,24 @@ $(TARGET): $(OBJS)
 $(OBJ)/%.o:$(SRC)/%.c
 	$(CC) -c $< $(INCS) -o $@ $(CFLAG)
 
+FIND_NAME = $(shell cd c-web-server | find -name obj)
+
 # Update IP to match local
 files := js/app.js
 update:
 	@sed -i 's/$(OLD_IP)/$(LOACL_IP_ADDR)/' $(files)
 	@echo "\033[33mUpdate success:\033[0m"
 	@echo "replace \033[36mold_IP($(OLD_IP)\033[0m) as \033[31mlocal_IP($(LOACL_IP_ADDR)\033[0m)"
+ifeq ($(FIND_NAME), )
 	@mkdir $(OBJ)
+endif
 	@chmod 777 ./ -R
 	@git config --add core.filemode false
+
+info:
+	@echo "----------   Url Download Path   ----------\n"
+	@echo "\033[36m$(shell git remote -v | grep -v fetch | awk '{print $$2}')\033[0m"
+	@echo "\n-------------------------------------------"
 
 # Clean up the file
 clean:
