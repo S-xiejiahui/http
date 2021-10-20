@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .father {
+            position: relative;
+            /* background-color:dimgray; */
+            /* border: 1px solid rebeccapurple; */
+        }
+
+        .son {
+            position: absolute;
+            bottom: 16.6%;
+            margin-bottom: -100px;
+            /* left: 50%; */
+            /* margin-left: -50px; */
+        }
+
+        .gson{
+            margin: 0px auto;
+        }
+
+        .title {
+            text-align: center;
+            line-height: 120px;
+            font-size: xx-large;
+            font-family:'Times New Roman', Times, serif;
+        }
+
+    </style>
+
+<body>
+    <div class="father" style="width: 100%; height: 600px;">
+        <div class="title" style="width: 100%; height: 120px; background-color: white;">Welcome to video XJH !!</div>
+        <div class="son" style="width: 100%; height: 480px; background:darkgray;">
+            <div class="gson" style="width: 50%; height: 480px; background: #000;"><img src="" alt="" id="display"></div>
+        </div>
+    </div>
+    <button style="width: 100; height: 60px;" id="get_pic"> GET </button>
+</body>
+<script src="js/jquery.js"></script>
+    <script>
+        //循环执行，每隔1秒钟执行一次 1000 
+        var timer = 1;
+        var img = document.getElementById("display");
+        var t1 = window.setInterval(refreshCount, 100);
+        function refreshCount() {
+            console.log("ready");
+            img.src = "cgi-xjh/get_video_picture?filename=icon/jpg/" + timer + '.jpg';
+            timer = timer > 2 ? 1 : timer + 1;
+        }
+        //去掉定时器的方法  
+        //window.clearInterval(t1);   
+        
+        // var pic;
+        // var img = document.getElementById("display");
+        // function get_picture_from_server()
+        // {
+        //     $.ajax({
+        //         url: "cgi-xjh/get_video_picture",
+        //         dataType: 'text',
+        //         responseType: Blob,
+        //         type: "GET",
+        //         success: function (data)
+        //         {
+        //             console.log("success");
+        //             img.src = data;
+        //         },
+        //         error: function ()
+        //         {
+        //             console.log("error");
+        //         }
+        //     });
+        // }
+        // get_picture_from_server();
+            
+    </script>
+</html>

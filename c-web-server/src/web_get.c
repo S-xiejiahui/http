@@ -196,6 +196,35 @@ void send_response_msg(int fd, char *send_msg, int msg_length)
     Rio_writen(fd, body, strlen(body));
 }
 /****************************************************
+ * @brief  send picture
+ * @note   
+ * @note   
+ ***************************************************/
+void send_response_picture(int fd, char *send_picture)
+{
+    int srcfd = open(send_picture, O_RDONLY);
+    if(srcfd < 0)
+    {
+        fprintf(stderr, "send %s failed\n", send_picture);
+        return;
+    }
+    int filesize = get_filesize(send_picture);
+    char *fp = Mmap(0, filesize, PROT_READ, MAP_SHARED, srcfd, 0);
+    
+    char body[20480] = {0};
+    int count = 0;
+    count += snprintf(body + count, sizeof(body) - count, "HTTP/1.1 200 OK\r\n");
+    count += snprintf(body + count, sizeof(body) - count, "Server: XJH Web Server\r\n");
+    count += snprintf(body + count, sizeof(body) - count, "Connection:close\r\n");
+    count += snprintf(body + count, sizeof(body) - count, "Content-length: %d\r\n", filesize);
+    count += snprintf(body + count, sizeof(body) - count, "Content-type: image/jpeg;charset=utf-8\r\n\r\n");
+    Rio_writen(fd, body, strlen(body));
+    Rio_writen(fd, fp, filesize);
+
+    Munmap(fp, filesize);
+    close(srcfd);
+}
+/****************************************************
  * @brief  
  * @note   
  * @param  fd: 
@@ -215,6 +244,23 @@ void get_file_content(int fd, char *argv)
     if(!strcmp("filename", key))
     {
         send_response_file(fd, value);
+    }
+    return;
+}
+
+void get_video_picture(int fd, char *argv)
+{
+    if(NULL == argv)
+    {
+        return;
+    }
+    printf("argv = %s\n", argv);
+    char key[32] = {0}, value[32] = {0};
+    sscanf(argv, "%[^=]=%[^&]", key, value);
+    printf("key = %s, value = %s\n", key, value);
+    if(!strcmp("filename", key))
+    {
+        send_response_picture(fd, value);
     }
     return;
 }
@@ -239,6 +285,7 @@ void get_detailed_info(int fd, char *argv)
 
 cgi_public public_get_request[] = {
     {"/cgi-xjh/get_file_content", get_file_content},
+    {"/cgi-xjh/get_video_picture", get_video_picture},
     {"/cgi-xjh/get_detailed_info", get_detailed_info},
 };
 /****************************************************
@@ -250,7 +297,7 @@ cgi_public public_get_request[] = {
  ***************************************************/
 void deal_with_get_request(int fd, char *url)
 {
-    //printf("url = %s\n", url);
+    printf("url = %s\n", url);
     cJSON *root = cJSON_CreateObject();
     char filename[128] = {0}, cgi_argv[128] = {0};
 
