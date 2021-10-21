@@ -20,28 +20,28 @@ LOACL_IP_ADDR = $(shell ifconfig | grep inet | grep -v inet6 | grep -v 127 | sed
 # Use regular expressions to match files's ip addr
 JS_FILE_IP_ADDR = $(shell grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' js/app.js)
 OLD_IP = $(shell echo $(JS_FILE_IP_ADDR)| cut -d ' ' -f 1)
-	
+# Check whether the OBj folder exists
+FIND_NAME = $(shell cd c-web-server | find -name obj)
+
 # Compiling method
-all: $(TARGET)
+all: update $(TARGET)
 $(TARGET): $(OBJS) 
 	$(CC) $+ $(INCS) $(LIBS) -o $@  $(CFLAG)
 $(OBJ)/%.o:$(SRC)/%.c
 	$(CC) -c $< $(INCS) -o $@ $(CFLAG)
 
-FIND_NAME = $(shell cd c-web-server | find -name obj)
-
 # Update IP to match local
 files := js/app.js
 update:
+ifeq ($(FIND_NAME), )
 	@sed -i 's/$(OLD_IP)/$(LOACL_IP_ADDR)/' $(files)
 	@echo "\033[33mUpdate success:\033[0m"
 	@echo "replace \033[36mold_IP($(OLD_IP)\033[0m) as \033[31mlocal_IP($(LOACL_IP_ADDR)\033[0m)"
-ifeq ($(FIND_NAME), )
 	@mkdir $(OBJ)
-endif
 	@chmod 777 ./ -R
 	@git config --add core.filemode false
-
+endif
+	
 info:
 	@echo "----------   Url Download Path   ----------\n"
 	@echo "\033[36m$(shell git remote -v | grep -v fetch | awk '{print $$2}')\033[0m"
